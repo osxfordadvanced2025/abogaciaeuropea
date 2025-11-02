@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lex Advocatus | Despacho de Abogados</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --accent: #d4af37;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--primary);
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .lang-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid var(--accent);
+            color: white;
+            padding: 0.3rem 0.7rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .lang-btn.active {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .lang-btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary) 0%, #16213e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn {
+            background: var(--accent);
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            padding: 2rem;
+            background: white;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .team-card {
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .team-photo {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+            position: relative;
+        }
+
+        .team-photo::before {
+            content: '⚖';
+            opacity: 0.3;
+        }
+
+        .team-info {
+            padding: 2rem;
+        }
+
+        .team-info h4 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .team-role {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .team-bio {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .offices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .office-card {
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .office-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .office-map {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .office-map iframe {
+            transition: transform 0.3s;
+        }
+
+        .office-card:hover .office-map iframe {
+            transform: scale(1.05);
+        }
+
+        .office-info {
+            padding: 1.5rem;
+        }
+
+        .office-info h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .office-info p {
+            margin: 0.8rem 0;
+            line-height: 1.6;
+            color: var(--gray);
+        }
+
+        .office-info strong {
+            color: var(--accent);
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">LEX ADVOCATUS</div>
+            <div class="nav-links">
+                <a href="#home" data-i18n="nav.home">Inicio</a>
+                <a href="#about" data-i18n="nav.about">Nosotros</a>
+                <a href="#services" data-i18n="nav.services">Servicios</a>
+                <a href="#blog" data-i18n="nav.blog">Blog</a>
+                <a href="#contact" data-i18n="nav.contact">Contacto</a>
+                <div class="lang-selector">
+                    <button class="lang-btn active" onclick="changeLang('es')">ES</button>
+                    <button class="lang-btn" onclick="changeLang('en')">EN</button>
+                    <button class="lang-btn" onclick="changeLang('de')">DE</button>
+                    <button class="lang-btn" onclick="changeLang('pl')">PL</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 data-i18n="hero.title">Justicia con Excelencia</h1>
+            <p data-i18n="hero.subtitle">Defendiendo sus derechos con compromiso y profesionalidad</p>
+            <a href="#contact" class="cta-btn" data-i18n="hero.cta">Consulta Gratuita</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 data-i18n="about.title">Nuestro Despacho</h2>
+        <div style="max-width: 800px; margin: 0 auto 4rem; text-align: center;">
+            <p style="font-size: 1.2rem; line-height: 1.8; color: var(--gray);" data-i18n="about.description">
+                Con más de 25 años de experiencia, somos un despacho de abogados comprometido con la excelencia y la defensa de los derechos de nuestros clientes. Nuestro equipo multidisciplinar ofrece soluciones jurídicas integrales y personalizadas.
+            </p>
+        </div>
+        
+        <h3 style="text-align: center; font-size: 2rem; margin-bottom: 3rem;" data-i18n="about.team">Nuestro Equipo</h3>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-photo" style="background: linear-gradient(135deg, #d4af37 0%, #c9a332 100%);"></div>
+                <div class="team-info">
+                    <h4>Dr. María González</h4>
+                    <p class="team-role" data-i18n="team.maria.role">Socia Fundadora | Derecho Civil y Mercantil</p>
+                    <p class="team-bio" data-i18n="team.maria.bio">Más de 20 años de experiencia en derecho civil y corporativo. Especializada en fusiones y adquisiciones internacionales.</p>
+                </div>
+            </div>
+            
+            <div class="team-card">
+                <div class="team-photo" style="background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);"></div>
+                <div class="team-info">
+                    <h4>Lic. Carlos Rodríguez</h4>
+                    <p class="team-role" data-i18n="team.carlos.role">Socio | Derecho Penal y Procesal</p>
+                    <p class="team-bio" data-i18n="team.carlos.bio">Experto en defensa penal con más de 200 casos exitosos. Miembro del Colegio de Abogados desde 2005.</p>
+                </div>
+            </div>
+            
+            <div class="team-card">
+                <div class="team-photo" style="background: linear-gradient(135deg, #d4af37 0%, #16213e 100%);"></div>
+                <div class="team-info">
+                    <h4>Dra. Ana Martínez</h4>
+                    <p class="team-role" data-i18n="team.ana.role">Socia | Derecho Laboral y Seguridad Social</p>
+                    <p class="team-bio" data-i18n="team.ana.bio">Especializada en derecho laboral y negociación colectiva. Doctora en Derecho por la Universidad Complutense de Madrid.</p>
+                </div>
+            </div>
+            
+            <div class="team-card">
+                <div class="team-photo" style="background: linear-gradient(135deg, #1a1a2e 0%, #d4af37 100%);"></div>
+                <div class="team-info">
+                    <h4>Lic. David López</h4>
+                    <p class="team-role" data-i18n="team.david.role">Asociado Senior | Derecho Inmobiliario</p>
+                    <p class="team-bio" data-i18n="team.david.bio">Especialista en transacciones inmobiliarias complejas y planificación urbana. 15 años de experiencia en el sector.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2 data-i18n="services.title">Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3 data-i18n="services.civil.title">Derecho Civil</h3>
+                <p data-i18n="services.civil.desc">Contratos, responsabilidad civil, reclamaciones y derecho de familia. Protegemos sus intereses en todas las áreas del derecho civil.</p>
+            </div>
+            <div class="service-card">
+                <h3 data-i18n="services.business.title">Derecho Mercantil</h3>
+                <p data-i18n="services.business.desc">Asesoramiento integral para empresas, constitución de sociedades, fusiones y adquisiciones, compliance corporativo.</p>
+            </div>
+            <div class="service-card">
+                <h3 data-i18n="services.criminal.title">Derecho Penal</h3>
+                <p data-i18n="services.criminal.desc">Defensa penal especializada en todas las fases del proceso. Garantizamos una representación rigurosa y efectiva.</p>
+            </div>
+            <div class="service-card">
+                <h3 data-i18n="services.labor.title">Derecho Laboral</h3>
+                <p data-i18n="services.labor.desc">Asesoramiento en conflictos laborales, despidos, negociación colectiva y prevención de riesgos laborales.</p>
+            </div>
+            <div class="service-card">
+                <h3 data-i18n="services.real.title">Derecho Inmobiliario</h3>
+                <p data-i18n="services.real.desc">Transacciones inmobiliarias, arrendamientos, propiedad horizontal y resolución de conflictos sobre inmuebles.</p>
+            </div>
+            <div class="service-card">
+                <h3 data-i18n="services.international.title">Derecho Internacional</h3>
+                <p data-i18n="services.international.desc">Asesoramiento en operaciones transfronterizas, contratos internacionales y arbitraje internacional.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog">
+        <h2 data-i18n="blog.title">Últimas Publicaciones</h2>
+        <div class="blog-grid" id="blogContainer"></div>
+    </section>
+
+    <section id="contact">
+        <h2 data-i18n="contact.title">Nuestras Oficinas</h2>
+        <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: var(--gray);" data-i18n="contact.desc">¿Necesita asesoramiento legal? Estamos aquí para ayudarle.</p>
+        
+        <div class="offices-grid">
+            <div class="office-card">
+                <div class="office-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.4287515268587!2d-3.7037902!3d40.416775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422997800a3c81%3A0xc436dec1618c2269!2sPuerta%20del%20Sol!5e0!3m2!1ses!2ses!4v1234567890" 
+                            width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="office-info">
+                    <h3 data-i18n="office.madrid.name">Madrid - Oficina Central</h3>
+                    <p><strong data-i18n="contact.address">Dirección:</strong><br>
+                    <span data-i18n="office.madrid.address">Calle Alcalá 45, 3º Piso<br>28014 Madrid, España</span></p>
+                    <p><strong data-i18n="contact.phone">Teléfono:</strong> +34 91 123 4567</p>
+                    <p><strong data-i18n="contact.email">Email:</strong> madrid@lexadvocatus.com</p>
+                </div>
+            </div>
+
+            <div class="office-card">
+                <div class="office-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.1513315569487!2d-74.0059413!3d40.7127753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a316e5a3b03%3A0x1d26742d2ee28a18!2sWall%20St%2C%20New%20York!5e0!3m2!1ses!2ses!4v1234567890" 
+                            width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="office-info">
+                    <h3 data-i18n="office.newyork.name">Nueva York</h3>
+                    <p><strong data-i18n="contact.address">Dirección:</strong><br>
+                    <span data-i18n="office.newyork.address">350 Fifth Avenue, Suite 4820<br>New York, NY 10118, USA</span></p>
+                    <p><strong data-i18n="contact.phone">Teléfono:</strong> +1 212 555 0123</p>
+                    <p><strong data-i18n="contact.email">Email:</strong> newyork@lexadvocatus.com</p>
+                </div>
+            </div>
+
+            <div class="office-card">
+                <div class="office-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2428.408620958147!2d13.404954!3d52.520007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851c655f20989%3A0x26bbfb4e84674c63!2sBrandenburger%20Tor!5e0!3m2!1ses!2ses!4v1234567890" 
+                            width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="office-info">
+                    <h3 data-i18n="office.berlin.name">Berlín</h3>
+                    <p><strong data-i18n="contact.address">Dirección:</strong><br>
+                    <span data-i18n="office.berlin.address">Unter den Linden 26-30<br>10117 Berlin, Deutschland</span></p>
+                    <p><strong data-i18n="contact.phone">Teléfono:</strong> +49 30 1234 5678</p>
+                    <p><strong data-i18n="contact.email">Email:</strong> berlin@lexadvocatus.com</p>
+                </div>
+            </div>
+
+            <div class="office-card">
+                <div class="office-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2443.7988745318247!2d21.012228999999998!3d52.229676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471ecc669a869f01%3A0x72f0be2a88ead3fc!2sPalac%20Kultury%20i%20Nauki!5e0!3m2!1ses!2ses!4v1234567890" 
+                            width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="office-info">
+                    <h3 data-i18n="office.warsaw.name">Varsovia</h3>
+                    <p><strong data-i18n="contact.address">Dirección:</strong><br>
+                    <span data-i18n="office.warsaw.address">Plac Defilad 1<br>00-901 Warszawa, Polska</span></p>
+                    <p><strong data-i18n="contact.phone">Teléfono:</strong> +48 22 123 4567</p>
+                    <p><strong data-i18n="contact.email">Email:</strong> warszawa@lexadvocatus.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Lex Advocatus. <span data-i18n="footer.rights">Todos los derechos reservados.</span></p>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            es: {
+                'nav.home': 'Inicio',
+                'nav.about': 'Nosotros',
+                'nav.services': 'Servicios',
+                'nav.blog': 'Blog',
+                'nav.contact': 'Contacto',
+                'hero.title': 'Justicia con Excelencia',
+                'hero.subtitle': 'Defendiendo sus derechos con compromiso y profesionalidad',
+                'hero.cta': 'Consulta Gratuita',
+                'about.title': 'Nuestro Despacho',
+                'about.description': 'Con más de 25 años de experiencia, somos un despacho de abogados comprometido con la excelencia y la defensa de los derechos de nuestros clientes. Nuestro equipo multidisciplinar ofrece soluciones jurídicas integrales y personalizadas.',
+                'about.team': 'Nuestro Equipo',
+                'team.maria.role': 'Socia Fundadora | Derecho Civil y Mercantil',
+                'team.maria.bio': 'Más de 20 años de experiencia en derecho civil y corporativo. Especializada en fusiones y adquisiciones internacionales.',
+                'team.carlos.role': 'Socio | Derecho Penal y Procesal',
+                'team.carlos.bio': 'Experto en defensa penal con más de 200 casos exitosos. Miembro del Colegio de Abogados desde 2005.',
+                'team.ana.role': 'Socia | Derecho Laboral y Seguridad Social',
+                'team.ana.bio': 'Especializada en derecho laboral y negociación colectiva. Doctora en Derecho por la Universidad Complutense de Madrid.',
+                'team.david.role': 'Asociado Senior | Derecho Inmobiliario',
+                'team.david.bio': 'Especialista en transacciones inmobiliarias complejas y planificación urbana. 15 años de experiencia en el sector.',
+                'services.title': 'Nuestros Servicios',
+                'services.civil.title': 'Derecho Civil',
+                'services.civil.desc': 'Contratos, responsabilidad civil, reclamaciones y derecho de familia. Protegemos sus intereses en todas las áreas del derecho civil.',
+                'services.business.title': 'Derecho Mercantil',
+                'services.business.desc': 'Asesoramiento integral para empresas, constitución de sociedades, fusiones y adquisiciones, compliance corporativo.',
+                'services.criminal.title': 'Derecho Penal',
+                'services.criminal.desc': 'Defensa penal especializada en todas las fases del proceso. Garantizamos una representación rigurosa y efectiva.',
+                'services.labor.title': 'Derecho Laboral',
+                'services.labor.desc': 'Asesoramiento en conflictos laborales, despidos, negociación colectiva y prevención de riesgos laborales.',
+                'services.real.title': 'Derecho Inmobiliario',
+                'services.real.desc': 'Transacciones inmobiliarias, arrendamientos, propiedad horizontal y resolución de conflictos sobre inmuebles.',
+                'services.international.title': 'Derecho Internacional',
+                'services.international.desc': 'Asesoramiento en operaciones transfronterizas, contratos internacionales y arbitraje internacional.',
+                'blog.title': 'Últimas Publicaciones',
+                'contact.title': 'Nuestras Oficinas',
+                'contact.desc': '¿Necesita asesoramiento legal? Estamos aquí para ayudarle.',
+                'contact.phone': 'Teléfono:',
+                'contact.email': 'Email:',
+                'contact.address': 'Dirección:',
+                'office.madrid.name': 'Madrid - Oficina Central',
+                'office.madrid.address': 'Calle Alcalá 45, 3º Piso\n28014 Madrid, España',
+                'office.newyork.name': 'Nueva York',
+                'office.newyork.address': '350 Fifth Avenue, Suite 4820\nNew York, NY 10118, USA',
+                'office.berlin.name': 'Berlín',
+                'office.berlin.address': 'Unter den Linden 26-30\n10117 Berlin, Deutschland',
+                'office.warsaw.name': 'Varsovia',
+                'office.warsaw.address': 'Plac Defilad 1\n00-901 Warszawa, Polska',
+                'footer.rights': 'Todos los derechos reservados.',
+                'blog.date': 'Publicado el',
+                'blog.read': 'Leer más'
+            },
+            en: {
+                'nav.home': 'Home',
+                'nav.about': 'About Us',
+                'nav.services': 'Services',
+                'nav.blog': 'Blog',
+                'nav.contact': 'Contact',
+                'hero.title': 'Justice with Excellence',
+                'hero.subtitle': 'Defending your rights with commitment and professionalism',
+                'hero.cta': 'Free Consultation',
+                'about.title': 'Our Firm',
+                'about.description': 'With over 25 years of experience, we are a law firm committed to excellence and defending our clients\' rights. Our multidisciplinary team offers comprehensive and personalized legal solutions.',
+                'about.team': 'Our Team',
+                'team.maria.role': 'Founding Partner | Civil and Corporate Law',
+                'team.maria.bio': 'Over 20 years of experience in civil and corporate law. Specialized in international mergers and acquisitions.',
+                'team.carlos.role': 'Partner | Criminal and Procedural Law',
+                'team.carlos.bio': 'Criminal defense expert with over 200 successful cases. Member of the Bar Association since 2005.',
+                'team.ana.role': 'Partner | Labor Law and Social Security',
+                'team.ana.bio': 'Specialized in labor law and collective bargaining. PhD in Law from the Complutense University of Madrid.',
+                'team.david.role': 'Senior Associate | Real Estate Law',
+                'team.david.bio': 'Specialist in complex real estate transactions and urban planning. 15 years of experience in the sector.',
+                'services.title': 'Our Services',
+                'services.civil.title': 'Civil Law',
+                'services.civil.desc': 'Contracts, civil liability, claims and family law. We protect your interests in all areas of civil law.',
+                'services.business.title': 'Corporate Law',
+                'services.business.desc': 'Comprehensive business advice, company formation, mergers and acquisitions, corporate compliance.',
+                'services.criminal.title': 'Criminal Law',
+                'services.criminal.desc': 'Specialized criminal defense at all stages of proceedings. We guarantee rigorous and effective representation.',
+                'services.labor.title': 'Labor Law',
+                'services.labor.desc': 'Advice on labor disputes, dismissals, collective bargaining and occupational risk prevention.',
+                'services.real.title': 'Real Estate Law',
+                'services.real.desc': 'Real estate transactions, leases, horizontal property and resolution of property disputes.',
+                'services.international.title': 'International Law',
+                'services.international.desc': 'Advice on cross-border operations, international contracts and international arbitration.',
+                'blog.title': 'Latest Posts',
+                'contact.title': 'Our Offices',
+                'contact.desc': 'Need legal advice? We are here to help.',
+                'contact.phone': 'Phone:',
+                'contact.email': 'Email:',
+                'contact.address': 'Address:',
+                'office.madrid.name': 'Madrid - Headquarters',
+                'office.madrid.address': 'Calle Alcalá 45, 3rd Floor\n28014 Madrid, Spain',
+                'office.newyork.name': 'New York',
+                'office.newyork.address': '350 Fifth Avenue, Suite 4820\nNew York, NY 10118, USA',
+                'office.berlin.name': 'Berlin',
+                'office.berlin.address': 'Unter den Linden 26-30\n10117 Berlin, Germany',
+                'office.warsaw.name': 'Warsaw',
+                'office.warsaw.address': 'Plac Defilad 1\n00-901 Warsaw, Poland',
+                'footer.rights': 'All rights reserved.',
+                'blog.date': 'Published on',
+                'blog.read': 'Read more'
+            },
+            de: {
+                'nav.home': 'Startseite',
+                'nav.about': 'Über uns',
+                'nav.services': 'Dienstleistungen',
+                'nav.blog': 'Blog',
+                'nav.contact': 'Kontakt',
+                'hero.title': 'Gerechtigkeit mit Exzellenz',
+                'hero.subtitle': 'Verteidigung Ihrer Rechte mit Engagement und Professionalität',
+                'hero.cta': 'Kostenlose Beratung',
+                'about.title': 'Unsere Kanzlei',
+                'about.description': 'Mit über 25 Jahren Erfahrung sind wir eine Anwaltskanzlei, die sich der Exzellenz und der Verteidigung der Rechte unserer Mandanten verpflichtet hat. Unser multidisziplinäres Team bietet umfassende und maßgeschneiderte Rechtslösungen.',
+                'about.team': 'Unser Team',
+                'team.maria.role': 'Gründungspartnerin | Zivil- und Handelsrecht',
+                'team.maria.bio': 'Über 20 Jahre Erfahrung im Zivil- und Unternehmensrecht. Spezialisiert auf internationale Fusionen und Übernahmen.',
+                'team.carlos.role': 'Partner | Straf- und Prozessrecht',
+                'team.carlos.bio': 'Experte für Strafverteidigung mit über 200 erfolgreichen Fällen. Mitglied der Rechtsanwaltskammer seit 2005.',
+                'team.ana.role': 'Partnerin | Arbeitsrecht und Sozialversicherung',
+                'team.ana.bio': 'Spezialisiert auf Arbeitsrecht und Tarifverhandlungen. Doktor der Rechtswissenschaften der Complutense-Universität Madrid.',
+                'team.david.role': 'Senior Associate | Immobilienrecht',
+                'team.david.bio': 'Spezialist für komplexe Immobilientransaktionen und Stadtplanung. 15 Jahre Erfahrung in der Branche.',
+                'services.title': 'Unsere Dienstleistungen',
+                'services.civil.title': 'Zivilrecht',
+                'services.civil.desc': 'Verträge, Haftung, Forderungen und Familienrecht. Wir schützen Ihre Interessen in allen Bereichen des Zivilrechts.',
+                'services.business.title': 'Handelsrecht',
+                'services.business.desc': 'Umfassende Unternehmensberatung, Gesellschaftsgründung, Fusionen und Übernahmen, Corporate Compliance.',
+                'services.criminal.title': 'Strafrecht',
+                'services.criminal.desc': 'Spezialisierte Strafverteidigung in allen Verfahrensphasen. Wir garantieren rigorose und effektive Vertretung.',
+                'services.labor.title': 'Arbeitsrecht',
+                'services.labor.desc': 'Beratung bei Arbeitskonflikten, Kündigungen, Tarifverhandlungen und Arbeitsschutz.',
+                'services.real.title': 'Immobilienrecht',
+                'services.real.desc': 'Immobilientransaktionen, Mietverträge, Wohnungseigentum und Lösung von Immobilienkonflikten.',
+                'services.international.title': 'Internationales Recht',
+                'services.international.desc': 'Beratung bei grenzüberschreitenden Operationen, internationalen Verträgen und internationaler Schiedsgerichtsbarkeit.',
+                'blog.title': 'Neueste Beiträge',
+                'contact.title': 'Unsere Büros',
+                'contact.desc': 'Benötigen Sie Rechtsberatung? Wir sind für Sie da.',
+                'contact.phone': 'Telefon:',
+                'contact.email': 'E-Mail:',
+                'contact.address': 'Adresse:',
+                'office.madrid.name': 'Madrid - Hauptsitz',
+                'office.madrid.address': 'Calle Alcalá 45, 3. Stock\n28014 Madrid, Spanien',
+                'office.newyork.name': 'New York',
+                'office.newyork.address': '350 Fifth Avenue, Suite 4820\nNew York, NY 10118, USA',
+                'office.berlin.name': 'Berlin',
+                'office.berlin.address': 'Unter den Linden 26-30\n10117 Berlin, Deutschland',
+                'office.warsaw.name': 'Warschau',
+                'office.warsaw.address': 'Plac Defilad 1\n00-901 Warschau, Polen',
+                'footer.rights': 'Alle Rechte vorbehalten.',
+                'blog.date': 'Veröffentlicht am',
+                'blog.read': 'Weiterlesen'
+            },
+            pl: {
+                'nav.home': 'Start',
+                'nav.about': 'O nas',
+                'nav.services': 'Usługi',
+                'nav.blog': 'Blog',
+                'nav.contact': 'Kontakt',
+                'hero.title': 'Sprawiedliwość z Doskonałością',
+                'hero.subtitle': 'Bronimy Twoich praw z zaangażowaniem i profesjonalizmem',
+                'hero.cta': 'Bezpłatna Konsultacja',
+                'about.title': 'Nasza Kancelaria',
+                'about.description': 'Z ponad 25-letnim doświadczeniem jesteśmy kancelarią prawną zaangażowaną w doskonałość i obronę praw naszych klientów. Nasz multidyscyplinarny zespół oferuje kompleksowe i spersonalizowane rozwiązania prawne.',
+                'about.team': 'Nasz Zespół',
+                'team.maria.role': 'Partner Założycielski | Prawo Cywilne i Handlowe',
+                'team.maria.bio': 'Ponad 20 lat doświadczenia w prawie cywilnym i korporacyjnym. Specjalizuje się w międzynarodowych fuzjach i przejęciach.',
+                'team.carlos.role': 'Partner | Prawo Karne i Procesowe',
+                'team.carlos.bio': 'Ekspert w obronie karnej z ponad 200 udanymi sprawami. Członek Izby Adwokackiej od 2005 roku.',
+                'team.ana.role': 'Partner | Prawo Pracy i Ubezpieczeń Społecznych',
+                'team.ana.bio': 'Specjalizuje się w prawie pracy i negocjacjach zbiorowych. Doktor prawa z Uniwersytetu Complutense w Madrycie.',
+                'team.david.role': 'Starszy Współpracownik | Prawo Nieruchomości',
+                'team.david.bio': 'Specjalista w zakresie złożonych transakcji nieruchomości i planowania urbanistycznego. 15 lat doświadczenia w branży.',
+                'services.title': 'Nasze Usługi',
+                'services.civil.title': 'Prawo Cywilne',
+                'services.civil.desc': 'Umowy, odpowiedzialność cywilna, roszczenia i prawo rodzinne. Chronimy Twoje interesy we wszystkich dziedzinach prawa cywilnego.',
+                'services.business.title': 'Prawo Handlowe',
+                'services.business.desc': 'Kompleksowe doradztwo dla firm, zakładanie spółek, fuzje i przejęcia, compliance korporacyjny.',
+                'services.criminal.title': 'Prawo Karne',
+                'services.criminal.desc': 'Specjalistyczna obrona karna na wszystkich etapach postępowania. Gwarantujemy rygorystyczną i skuteczną reprezentację.',
+                'services.labor.title': 'Prawo Pracy',
+                'services.labor.desc': 'Doradztwo w sporach pracowniczych, zwolnienia, negocjacje zbiorowe i zapobieganie ryzyku zawodowemu.',
+                'services.real.title': 'Prawo Nieruchomości',
+                'services.real.desc': 'Transakcje nieruchomości, najem, własność lokali i rozwiązywanie sporów dotyczących nieruchomości.',
+                'services.international.title': 'Prawo Międzynarodowe',
+                'services.international.desc': 'Doradztwo w operacjach transgranicznych, umowy międzynarodowe i arbitraż międzynarodowy.',
+                'blog.title': 'Najnowsze Publikacje',
+                'contact.title': 'Nasze Biura',
+                'contact.desc': 'Potrzebujesz porady prawnej? Jesteśmy tutaj, aby pomóc.',
+                'contact.phone': 'Telefon:',
+                'contact.email': 'Email:',
+                'contact.address': 'Adres:',
+                'office.madrid.name': 'Madryt - Siedziba Główna',
+                'office.madrid.address': 'Calle Alcalá 45, 3 piętro\n28014 Madryt, Hiszpania',
+                'office.newyork.name': 'Nowy Jork',
+                'office.newyork.address': '350 Fifth Avenue, Suite 4820\nNew York, NY 10118, USA',
+                'office.berlin.name': 'Berlin',
+                'office.berlin.address': 'Unter den Linden 26-30\n10117 Berlin, Niemcy',
+                'office.warsaw.name': 'Warszawa',
+                'office.warsaw.address': 'Plac Defilad 1\n00-901 Warszawa, Polska',
+                'footer.rights': 'Wszelkie prawa zastrzeżone.',
+                'blog.date': 'Opublikowano',
+                'blog.read': 'Czytaj więcej'
+            }
+        };
+
+        const blogPosts = {
+            es: [
+                { title: 'Nueva Ley de Protección al Consumidor 2025', date: '15 Octubre 2025', excerpt: 'Análisis de las principales novedades legislativas que afectan a los derechos de los consumidores.' },
+                { title: 'Guía Completa sobre Testamentos', date: '3 Octubre 2025', excerpt: 'Todo lo que necesita saber sobre la planificación sucesoria y la herencia en España.' },
+                { title: 'Derechos Laborales en el Teletrabajo', date: '22 Septiembre 2025', excerpt: 'Cómo proteger sus derechos en la nueva era del trabajo remoto y híbrido.' }
+            ],
+            en: [
+                { title: 'New Consumer Protection Law 2025', date: 'October 15, 2025', excerpt: 'Analysis of the main legislative changes affecting consumer rights.' },
+                { title: 'Complete Guide to Wills', date: 'October 3, 2025', excerpt: 'Everything you need to know about estate planning and inheritance in Spain.' },
+                { title: 'Labor Rights in Remote Work', date: 'September 22, 2025', excerpt: 'How to protect your rights in the new era of remote and hybrid work.' }
+            ],
+            de: [
+                { title: 'Neues Verbraucherschutzgesetz 2025', date: '15. Oktober 2025', excerpt: 'Analyse der wichtigsten gesetzlichen Änderungen, die Verbraucherrechte betreffen.' },
+                { title: 'Vollständiger Leitfaden zu Testamenten', date: '3. Oktober 2025', excerpt: 'Alles, was Sie über Nachlassplanung und Erbschaft in Spanien wissen müssen.' },
+                { title: 'Arbeitsrechte bei Telearbeit', date: '22. September 2025', excerpt: 'Wie Sie Ihre Rechte in der neuen Ära der Remote- und Hybridarbeit schützen.' }
+            ],
+            pl: [
+                { title: 'Nowa Ustawa o Ochronie Konsumentów 2025', date: '15 października 2025', excerpt: 'Analiza głównych zmian legislacyjnych wpływających na prawa konsumentów.' },
+                { title: 'Kompletny Przewodnik po Testamentach', date: '3 października 2025', excerpt: 'Wszystko, co musisz wiedzieć o planowaniu spadkowym i dziedziczeniu w Hiszpanii.' },
+                { title: 'Prawa Pracownicze w Pracy Zdalnej', date: '22 września 2025', excerpt: 'Jak chronić swoje prawa w nowej erze pracy zdalnej i hybrydowej.' }
+            ]
+        };
+
+        let currentLang = 'es';
+
+        function changeLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            renderBlog(lang);
+        }
+
+        function renderBlog(lang) {
+            const container = document.getElementById('blogContainer');
+            container.innerHTML = blogPosts[lang].map(post => `
+                <div class="blog-card">
+                    <div class="blog-img"></div>
+                    <div class="blog-content">
+                        <p class="blog-date">${translations[lang]['blog.date']} ${post.date}</p>
+                        <h3>${post.title}</h3>
+                        <p>${post.excerpt}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        renderBlog('es');
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
